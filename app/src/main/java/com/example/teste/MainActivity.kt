@@ -39,7 +39,12 @@ data class Message(val author: String, val body: String)
 
 @Composable
 fun MessageCard(msg: Message){
-    //add padding around our message
+    //O Row é um componente componível do Jetpack Compose usado para organizar elementos
+    // em uma linha horizontal. Ele serve como um recipiente para colocar outros componíveis,
+    // como botões, textos, imagens e outros elementos visuais, e alinhá-los em uma linha horizontal.
+
+
+    //adiciona preenchimento ao redor da nossa mensagem
     Row (modifier = Modifier.padding(all = 10.dp)){
 
         Image(
@@ -47,9 +52,9 @@ fun MessageCard(msg: Message){
             contentDescription = "Contact profile picture",
             modifier = Modifier
 
-                // Set image size to 40 dp
+                // Define o tamanho da imagem para 40 dp
                 .size(50.dp)
-                // Clip image to be shaped as a circle
+                // Clipe da imagem para ter a forma de um círculo
                 .clip(CircleShape)
                 .border(2.0.dp, MaterialTheme.colors.secondary, CircleShape)
         )
@@ -57,10 +62,15 @@ fun MessageCard(msg: Message){
 
         Column {
             Text(text = msg.author,
+                //Ele serve para aplicar uma borda a um componente componível (composable component) específico.
             color = MaterialTheme.colors.secondaryVariant,
-            style = MaterialTheme.typography.subtitle2
-            // Add a vertical space between the author and message texts
+
+               // definir o estilo de texto padrão em um tema específico.
+                        style = MaterialTheme.typography.subtitle2
+
             )
+            // Adiciona um espaço vertical entre o autor e os textos da mensagem
+
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = msg.body,
             style = MaterialTheme.typography.body2
@@ -68,17 +78,43 @@ fun MessageCard(msg: Message){
         }
     }
 }
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
+        }
+    }
+}
+object SampleData {
+    val conversationSample = listOf(
+        Message("Author 1", "Message 1"),
+        Message("Author 2", "Message 2"),
+        Message("Author 3", "Message 3"),
+        // Adicione mais mensagens de exemplo conforme necessário
+    )
+}
+
+@Preview
+@Composable
+
+fun PreviewConversation() {
+    TesteTheme {
+        Conversation(SampleData.conversationSample)
+    }
+}
 
 
 
-
-
+//tema escuro (ou modo noturno) pode ser ativado para evitar uma tela clara.
 @Preview(name = "Light Mode")
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     showBackground = true,
     name = "Dark Mode"
 )
+
+
 @Composable
 fun PreviewMessaCard(){
     TesteTheme {
