@@ -69,10 +69,10 @@ fun MessageCard(msg: Message) {
         Spacer(modifier = Modifier.width(8.dp))
 
 
-        // We keep track if the message is expanded or not in this
-        // variable
+      // Acompanhamos se a mensagem é expandida ou não neste
+        // variável
         var isExpanded by remember { mutableStateOf(false) }
-// surfaceColor will be updated gradually from one color to the other
+// surfaceColor será atualizado gradativamente de uma cor para outra
         val surfaceColor by animateColorAsState(
             if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.surface,
         )
@@ -102,8 +102,9 @@ fun MessageCard(msg: Message) {
                 Text(
                     text = msg.body,
                     modifier = Modifier.padding(all = 4.dp),
-                    // If the message is expanded, we display all its content
-                    // otherwise we only display the first line
+                  
+// Se a mensagem for expandida, exibimos todo o seu conteúdo
+                    // senão mostramos apenas a primeira linha
                     maxLines = if (isExpanded) Int.MAX_VALUE else 1,
                     style = MaterialTheme.typography.body2
                 )
